@@ -1,0 +1,32 @@
+{
+  "name": "explicit-window",
+  "version": "0.0.1",
+  "description": "Converts explicit assignments to window into explicit assignments.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cameron-martin/explicit-window"
+  },
+  "keywords": [
+    "compiler"
+  ],
+  "author": "Cameron Martin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cameron-martin/explicit-window/issues"
+  },
+  "homepage": "https://github.com/cameron-martin/explicit-window",
+  "dependencies": {
+    "esprima": "^2.6.0",
+    "estraverse": "^4.1.0",
+    "node-promise": "^0.5.12"
+  },
+  "devDependencies": {
+    "karma": "^0.13.10",
+    "promise": "^7.0.4",
+    "promised-io": "^0.3.5"
+  }
+}
