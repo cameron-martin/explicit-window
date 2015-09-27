@@ -17,6 +17,8 @@ If there is anything I've missed, open up an issue.
 
 ## Usage
 
-    var explicitWindow = require('explicit-window');
+```javascript
+var explicitWindow = require('explicit-window');
 
-    var convertedFileContents = explicitWindow(fileContents);
+var convertedFileContents = explicitWindow(fileContents);
+```
