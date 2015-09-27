@@ -34,6 +34,10 @@ function getTestCases(dirName) {
     });
   });
 
+  if(groupList.length * 2 !== files.length) {
+    throw new Error('Invalid files present in test cases directory');
+  }
+
   return groupList;
 }
 

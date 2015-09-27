@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/cameron-martin/explicit-window",
   "dependencies": {
-    "esprima": "^2.6.0",
     "estraverse": "^4.1.0",
-    "node-promise": "^0.5.12"
+    "node-promise": "^0.5.12",
+    "recast": "^0.10.33"
   },
   "devDependencies": {
-    "karma": "^0.13.10",
+    "chai": "^3.3.0",
     "promise": "^7.0.4",
     "promised-io": "^0.3.5"
   }
