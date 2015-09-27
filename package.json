@@ -21,7 +21,6 @@
   "homepage": "https://github.com/cameron-martin/explicit-window",
   "dependencies": {
     "estraverse": "^4.1.0",
-    "node-promise": "^0.5.12",
     "recast": "^0.10.33"
   },
   "devDependencies": {
