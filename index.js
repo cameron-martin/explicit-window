@@ -9,7 +9,7 @@ function flatten(arrays) {
 }
 // END Util Functions
 
-function tranform(input) {
+function transform(input) {
   var inputAst = recast.parse(input);
   var outputAst = transformAst(inputAst);
 
@@ -17,17 +17,17 @@ function tranform(input) {
 }
 
 function transformAst(inputAst) {
-  var transformSteps = [
-    renameFunctionDeclarations,
-    renameTopLevelVariableDeclarations
+  var transformers = [
+    transformFunctionDeclarations,
+    transformVariableDeclarations
   ];
 
-  return transformSteps.reduce(function(ast, transformStep) {
-    return transformStep(ast);
+  return transformers.reduce(function(ast, transformer) {
+    return transformer(ast);
   }, inputAst);
 }
 
-function renameFunctionDeclarations(inputAst) {
+function transformFunctionDeclarations(inputAst) {
   var functionDeclarations = [];
 
   estraverse.replace(inputAst.program, {
@@ -41,14 +41,14 @@ function renameFunctionDeclarations(inputAst) {
     }
   });
 
-  var renamedDeclarations = functionDeclarations.map(tranformFunctionDeclaration);
+  var transformedDeclarations = functionDeclarations.map(transformFunctionDeclaration);
 
-  inputAst.program.body = renamedDeclarations.concat(inputAst.program.body);
+  inputAst.program.body = transformedDeclarations.concat(inputAst.program.body);
 
   return inputAst;
 }
 
-function tranformFunctionDeclaration(node) {
+function transformFunctionDeclaration(node) {
   return {
     type: 'ExpressionStatement',
     expression: {
@@ -86,21 +86,35 @@ function tranformFunctionDeclaration(node) {
   };
 }
 
-function renameTopLevelVariableDeclarations(inputAst) {
-  inputAst.program.body = flatten(inputAst.program.body.map(function(node) {
-    // TODO: Find out behaviour of different kinds of VariableDeclaration, ie let.
-    if(node.type !== 'VariableDeclaration' || node.kind !== 'var') {
-      return node;
-    }
-
-    return node.declarations.map(function(declaration) {
-      if(!declaration.init) {
-        return;
+function transformVariableDeclarations(inputAst) {
+  estraverse.replace(inputAst.program, {
+    enter: function(node) {
+      if(node.type === 'VariableDeclaration' && node.kind === 'var') {
+        return transformVariableDeclaration(node);
+      } else if(node.type === 'FunctionExpression') {
+        this.skip();
       }
+    }
+  });
 
-      return {
-        "type": "ExpressionStatement",
-        "expression": {
+  return inputAst;
+}
+
+function transformVariableDeclaration(node) {
+  var declarationsWithInit = node.declarations.filter(function(declaration) {
+    return declaration.init !== null;
+  });
+
+  if(declarationsWithInit.length === 0) {
+    return null;
+  }
+
+  return {
+    "type": "ExpressionStatement",
+    "expression": {
+      type: 'SequenceExpression',
+      expressions: declarationsWithInit.map(function(declaration) {
+        return {
           "type": "AssignmentExpression",
           "operator": "=",
           "left": {
@@ -116,14 +130,9 @@ function renameTopLevelVariableDeclarations(inputAst) {
           },
           "right": declaration.init,
         }
-      }
-
-    }).filter(function(node) {
-      return node !== undefined;
-    });
-  }));
-
-  return inputAst;
+      })
+    }
+  }
 }
 
-module.exports = tranform;
+module.exports = transform;
