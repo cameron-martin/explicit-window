@@ -1,3 +1,7 @@
+expect(function() {
+  test1;
+}).to.not.throw(Error);
+
 var test1 = false, test2 = true;
 
 var test3, test4 = {};

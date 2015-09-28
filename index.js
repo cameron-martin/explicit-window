@@ -87,9 +87,12 @@ function transformFunctionDeclaration(node) {
 }
 
 function transformVariableDeclarations(inputAst) {
+  var variableDeclarations = [];
+
   estraverse.replace(inputAst.program, {
     enter: function(node) {
       if(node.type === 'VariableDeclaration' && node.kind === 'var') {
+        variableDeclarations.push(node);
         return transformVariableDeclaration(node);
       } else if(node.type === 'FunctionExpression') {
         this.skip();
@@ -97,7 +100,41 @@ function transformVariableDeclarations(inputAst) {
     }
   });
 
+  var declarationInitialisations = variableDeclarations.map(createVariableDeclarationInitialisation);
+
+  inputAst.program.body = declarationInitialisations.concat(inputAst.program.body);
+
   return inputAst;
+}
+
+function createVariableDeclarationInitialisation(declaration) {
+  return {
+    "type": "ExpressionStatement",
+    "expression": {
+      type: 'SequenceExpression',
+      expressions: declaration.declarations.map(function(declaration) {
+        return {
+          "type": "AssignmentExpression",
+          "operator": "=",
+          "left": {
+            type: 'MemberExpression',
+            computed: false,
+            object: {
+              type: 'Identifier',
+              name: 'window',
+              typeAnnotation: undefined,
+              optional: undefined
+            },
+            property: declaration.id
+          },
+          "right": {
+            "type": "Identifier",
+            "name": "undefined"
+          },
+        }
+      })
+    }
+  }
 }
 
 function transformVariableDeclaration(node) {
