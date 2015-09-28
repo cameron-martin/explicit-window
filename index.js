@@ -59,15 +59,11 @@ function transformFunctionDeclaration(node) {
         computed: false,
         object: {
           type: 'Identifier',
-          name: 'window',
-          typeAnnotation: undefined,
-          optional: undefined
+          name: 'window'
         },
         property: {
           type: 'Identifier',
-          name: node.id.name,
-          typeAnnotation: undefined,
-          optional: undefined
+          name: node.id.name
         }
       },
       right: {
@@ -75,7 +71,7 @@ function transformFunctionDeclaration(node) {
         id: null,
         params: node.params,
         defaults: node.defaults,
-        body: node.body, //
+        body: node.body,
         rest: node.rest,
         generator: node.generator,
         expression: node.expression,
@@ -121,16 +117,14 @@ function createVariableDeclarationInitialisation(declaration) {
             computed: false,
             object: {
               type: 'Identifier',
-              name: 'window',
-              typeAnnotation: undefined,
-              optional: undefined
+              name: 'window'
             },
             property: declaration.id
           },
           "right": {
             "type": "Identifier",
             "name": "undefined"
-          },
+          }
         }
       })
     }
@@ -159,9 +153,7 @@ function transformVariableDeclaration(node) {
             computed: false,
             object: {
               type: 'Identifier',
-              name: 'window',
-              typeAnnotation: undefined,
-              optional: undefined
+              name: 'window'
             },
             property: declaration.id
           },
