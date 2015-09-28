@@ -1,6 +1,6 @@
 {
   "name": "explicit-window",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Converts explicit assignments to window into explicit assignments.",
   "main": "index.js",
   "scripts": {
