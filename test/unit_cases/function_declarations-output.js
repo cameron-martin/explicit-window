@@ -12,6 +12,8 @@ window.test3 = function(param) {
 
 window.test1 = false;
 
+expect(test2).to.be.a('function');
+
 window.test2 = false;
 
 if(true) {

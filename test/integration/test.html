@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <title>explicit-window integration tests</title>
+  <script type="text/javascript">
+    (function() {
+
+      var testCases = [
+        'all',
+        'function_declarations',
+        'variable_declarations'
+      ];
+
+      var testFiles = Array.prototype.concat.apply([], testCases.map(function(testCase) {
+        return [
+          testCase + '-input.js',
+          testCase + '-output.js'
+        ];
+      }));
+
+      document.addEventListener('DOMContentLoaded', function() {
+        testFiles.forEach(createCaseIframe);
+      });
+
+      function createCaseIframe(testFile) {
+        var iframe = document.createElement('iframe');
+        iframe.src = 'test_case.html#' + testFile;
+
+        document.body.appendChild(iframe);
+      }
+    })();
+  </script>
+  <!-- <script type="text/javascript" src="../unit_cases/all-input.js"></script>
+  <script type="text/javascript" src="../unit_cases/all-output.js"></script>
+  <script type="text/javascript" src="../unit_cases/function_declarations-input.js"></script>
+  <script type="text/javascript" src="../unit_cases/function_declarations-output.js"></script>
+  <script type="text/javascript" src="../unit_cases/variable_declarations-input.js"></script>
+  <script type="text/javascript" src="../unit_cases/variable_declarations-output.js"></script> -->
+</head>
+<body></body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <!-- <script type="text/javascript" src="http://chaijs.com/chai.js"></script> -->
+  <script type="text/javascript" src="chai.js"></script>
+  <script type="text/javascript">
+    (function() {
+      window.expect = chai.expect;
+
+      var testFile = window.location.hash.slice(1);
+
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.appendChild(createTestScriptElement(testFile));
+      });
+
+      function createTestScriptElement(testFile) {
+        var testScript = document.createElement('script');
+        testScript.src = '../unit_cases/' + testFile;
+
+        return testScript;
+      }
+    })();
+  </script>
+</head>
+<body></body>

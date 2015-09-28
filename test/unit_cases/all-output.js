@@ -2,4 +2,6 @@ window.test = function() {
 
 };
 
-window.test = {};
+window.test = '';
+
+expect(test).to.eq('');
