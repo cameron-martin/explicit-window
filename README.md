@@ -33,4 +33,4 @@ To run the unit tests, install mocha with
 
 then run `mocha`.
 
-To run the integration tests, open `test/integration/test.html` in your browser. The tests pass if no errors are thrown when executing the page. I'll probably find a better way of testing this at sonme point.
+To run the integration tests, open `test/integration/test.html` in your browser. The tests pass if no errors are thrown when executing the page. I'll probably find a better way of testing this at some point.
