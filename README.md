@@ -2,7 +2,7 @@
 
 A small javascript-to-javascript compiler which converts (some) implicit assignments to window into explicit ones.
 
-This is useful when using js-to-js compilers that wrap your code in a function expression, with code that assigns to window using mechanisms that only do so in the top scope.
+This is useful when using js-to-js compilers that wrap your code in an iife, with code that assigns to window using mechanisms that only do so in the top scope.
 
 It converts:
 
