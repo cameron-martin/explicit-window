@@ -1,5 +1,7 @@
 # explicit-window
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/cameron-martin/explicit-window.svg)](https://greenkeeper.io/)
+
 A small javascript-to-javascript compiler which converts (some) implicit assignments to window into explicit ones.
 
 This is useful when using js-to-js compilers that wrap your code in an iife, with code that assigns to window using mechanisms that only do so in the top scope.
